@@ -403,8 +403,3 @@ flutter run --flavor prod -t lib/main/main_production.dart
 - **Mohamed Atef** – [GitHub Profile](https://github.com/MohamedAatef12)
 
 
-
-## 📄 License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
-
