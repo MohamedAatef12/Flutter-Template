@@ -79,26 +79,26 @@ lib
 │   │   │   │   ├── login_model.dart
 │   │   │   │   └── user_model.dart
 │   │   │   ├── repos
-│   │   │   │   └── auth_repository_impl.dart
+│   │   │   │   └── auth_repository_impl.dart              #Entity
 │   │   │   └── sources
 │   │   │       ├── local
 │   │   │       │   └── auth_local_datasource.dart
 │   │   │       └── remote
-│   │   │           └── auth_remote_datasource.dart
+│   │   │           └── auth_remote_datasource.dart        #Model
 │   │   ├── domain
 │   │   │   ├── entities
 │   │   │   │   ├── login_entity.dart
 │   │   │   │   └── user_entity.dart
 │   │   │   ├── repositories
-│   │   │   │   └── auth_repository.dart
+│   │   │   │   └── auth_repository.dart                   #Entity
 │   │   │   └── usecases
-│   │   │       ├── login_user.dart
-│   │   │       └── sign_up.dart
+│   │   │       ├── login_user.dart                        #Entity
+│   │   │       └── sign_up.dart                           #Entity
 │   │   └── presentation
 │   │       ├── blocs
-│   │       │   ├── auth_bloc.dart
-│   │       │   ├── auth_event.dart
-│   │       │   └── auth_state.dart
+│   │       │   ├── auth_bloc.dart                         #Events
+│   │       │   ├── auth_event.dart                        #Entity
+│   │       │   └── auth_state.dart                        #Entity
 │   │       ├── pages
 │   │       │   ├── login_page.dart
 │   │       │   └── register_page.dart
