@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:template/core/error/failure.dart';
 import 'package:template/core/utils/logger.dart';
 import 'package:template/data/caching/secure_storage_helper.dart';
 import 'package:template/data/caching/shared_prefs_helper.dart';
@@ -68,6 +69,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(LoginSuccess(user));
         } else {
           AppLogger.error('Login failed: Invalid credentials');
+          emit(AuthFailure(ServerFailure('Login failed: Invalid credentials')));
         }
       },
     );

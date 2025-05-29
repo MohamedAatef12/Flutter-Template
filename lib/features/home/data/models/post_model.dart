@@ -1,4 +1,4 @@
-import 'package:template/features/home/domain/entities/post_entity.dart';
+import 'package:template/features/home/domain/entities/home_entity.dart';
 
 class PostModel extends PostEntity {
   const PostModel({required super.id, required super.name});

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:template/config/router/routes.dart';
 import 'package:template/core/utils/custom_button.dart';
 import 'package:template/core/utils/custom_text_form_field.dart';
 import 'package:template/core/utils/validators.dart';
@@ -31,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(const SnackBar(content: Text("Login Successful")));
-            // context.goNamed(AppRouteNames.home);
+            context.go(AppRoutes.home);
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(
               context,
@@ -61,6 +63,18 @@ class _LoginPageState extends State<LoginPage> {
                   validator: Validators.validatePassword,
                 ),
                 const SizedBox(height: 30),
+                // InkWell(
+                //   onTap: () {
+                //     GoRouter.of(context).go(AppRoutes.signUp);
+                //   },
+                //   child: Text(
+                //     'sign up',
+                //     textAlign: TextAlign.right,
+                //     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                //       color: Theme.of(context).colorScheme.primary,
+                //     ),
+                //   ),
+                // ),
                 Center(
                   child: CustomFilledButton(
                     text: 'Login',

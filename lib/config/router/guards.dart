@@ -1,3 +1,4 @@
+import 'package:template/core/utils/logger.dart';
 import 'package:template/data/caching/secure_storage_helper.dart';
 import 'package:template/data/caching/shared_prefs_helper.dart';
 
@@ -28,6 +29,14 @@ class AuthService {
   }
 
   static Future<void> logout() async {
+    // Clear secure storage
+    await SecureStorageHelper.delete('email');
+    await SecureStorageHelper.delete('password');
+
+    // Clear shared preferences
+    await SharedPrefsHelper.setBool('isSignedUp', false);
     await SharedPrefsHelper.setBool('isLoggedIn', false);
+
+    AppLogger.error('User logged out successfully');
   }
 }

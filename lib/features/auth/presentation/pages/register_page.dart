@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:template/config/router/routes.dart';
 import 'package:template/core/utils/custom_button.dart';
 import 'package:template/core/utils/custom_text_form_field.dart';
 import 'package:template/core/utils/validators.dart';
@@ -34,6 +36,7 @@ class _SignUpPageState extends State<SignUpPage> {
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(const SnackBar(content: Text('Sign up successful')));
+            context.go(AppRoutes.login);
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(
               context,
