@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:template/core/utils/custom_button.dart';
 import 'package:template/core/utils/custom_text_form_field.dart';
 import 'package:template/core/utils/validators.dart';
@@ -27,12 +26,12 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
       body: BlocConsumer<AuthBloc, AuthState>(
-        listener: (BuildContext context1, state) {
+        listener: (context, state) {
           if (state is LoginSuccess) {
-            context1.pushNamed('home');
             ScaffoldMessenger.of(
-              context1,
+              context,
             ).showSnackBar(const SnackBar(content: Text("Login Successful")));
+            // context.goNamed(AppRouteNames.home);
           } else if (state is AuthFailure) {
             ScaffoldMessenger.of(
               context,

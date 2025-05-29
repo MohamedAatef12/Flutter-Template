@@ -14,12 +14,17 @@ import 'guards.dart';
 GoRouter appRouter() => GoRouter(
   initialLocation: AppRoutes.login,
   redirect: (context, state) async {
+    final isSignedUp = await AuthService.hasSignedUp();
     final isLoggedIn = await AuthService.checkAuth();
 
     final goingToLogin = state.uri.toString() == AppRoutes.login;
     final goingToSignUp = state.uri.toString() == AppRoutes.signUp;
 
-    if (!isLoggedIn && !(goingToLogin || goingToSignUp)) {
+    if (!isSignedUp && !goingToSignUp) {
+      return AppRoutes.signUp;
+    }
+
+    if (isSignedUp && !isLoggedIn && !goingToLogin) {
       return AppRoutes.login;
     }
 
@@ -30,6 +35,11 @@ GoRouter appRouter() => GoRouter(
     return null;
   },
   routes: <RouteBase>[
+    // GoRoute(
+    //   path: '/',
+    //   name: 'splash',
+    //   builder: (context, state) => const SplashScreen(),
+    // ),
     GoRoute(
       path: AppRoutes.login,
       name: AppRouteNames.login,
@@ -54,7 +64,7 @@ GoRouter appRouter() => GoRouter(
     ),
     GoRoute(
       path: AppRoutes.home,
-      name: 'home',
+      name: AppRouteNames.home,
       builder: (context, state) => const HomePage(),
     ),
   ],
