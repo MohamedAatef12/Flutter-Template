@@ -264,12 +264,14 @@ if __name__ == "__main__":
 
 ▶️ How to Use
 
+```
 1- Save the script as generate_structure.py.
 
 2- Run it with Python: python generate_structure.py
 
 3- It will create all necessary folders and .dart files under lib/.
 
+```
 
 
 
