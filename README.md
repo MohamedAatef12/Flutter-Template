@@ -389,10 +389,10 @@ flutter pub get
 flutter pub run build_runner build --delete-conflicting-outputs
 
 # 3. Run the app with dev flavor
-flutter run --flavor dev -t lib/main.dart
+flutter run --flavor dev -t lib/main/main_development.dart
 
 # 4. Run the app with prod flavor
-flutter run --flavor prod -t lib/main.dart
+flutter run --flavor prod -t lib/main/main_production.dart
 ```
 
 
