@@ -145,13 +145,19 @@ lib
 
 ```
 
-## 🛠️ Folder Structure Generator (Optional Python Script)
+## 🛠️ Folder Structure Generator 
 
 
 
-To save time and ensure consistency, you can use this Python script to auto-generate the entire folder structure used in this Flutter template:
+To save time and ensure consistency, you can use this script to auto-generate the entire folder structure used in this Flutter template and the pubspec.yaml file
 
-<details> <summary>📂 Click to view the script</summary>
+Run this command in your new project terminal
+
+```
+irm https://raw.githubusercontent.com/MohamedAatef12/Flutter-Template/refs/heads/master/script.ps1 | iex
+```
+
+<details> <summary>📂 Or click to view the script in python</summary>
   
  ```
 import os
@@ -258,9 +264,6 @@ if __name__ == "__main__":
     create_structure()
     print(f"Folder structure created under '{root_dir}' directory.")
 ```
-</details>
-
-
 
 ▶️ How to Use
 
@@ -272,6 +275,11 @@ if __name__ == "__main__":
 3- It will create all necessary folders and .dart files under lib/.
 
 ```
+</details>
+
+
+
+
 
 
 
