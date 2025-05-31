@@ -86,6 +86,7 @@ void main() {
     ],
     'lib/features/home/presentation/pages': ['home_page.dart'],
     'lib/features/home/presentation/widgets': ['post_card.dart'],
+    // For assets, only folders, no files
     'assets/fonts': ['font/'],
     'assets/icons': ['icon/'],
     'assets/images': ['image/'],
@@ -99,11 +100,28 @@ void main() {
       print('Created directory: $path');
     }
 
-    for (var file in files) {
-      final f = File('$path/$file');
-      if (!f.existsSync()) {
-        f.createSync();
-        print('Created file: $path/$file');
+    // For assets folder paths, only create folders, no files
+    if (path.startsWith('assets')) {
+      for (var folder in files) {
+        // Remove trailing slash if exists
+        final folderPath =
+            folder.endsWith('/')
+                ? folder.substring(0, folder.length - 1)
+                : folder;
+        final assetSubDir = Directory('$path/$folderPath');
+        if (!assetSubDir.existsSync()) {
+          assetSubDir.createSync(recursive: true);
+          print('Created directory: $path/$folderPath');
+        }
+      }
+    } else {
+      // For all other paths, create files as well
+      for (var file in files) {
+        final f = File('$path/$file');
+        if (!f.existsSync()) {
+          f.createSync();
+          print('Created file: $path/$file');
+        }
       }
     }
   });
