@@ -368,16 +368,16 @@ assets:
 
 ## 🎯 Features
 
-- 🧩 **Clean Architecture** (Presentation, Domain, Data layers)
-- 🗂️ **Modular & Scalable Folder Structure**
-- 🛠️ **Dependency Injection** with `get_it` and `injectable`
-- 🌐 **API Handling** using `Dio`
-- 🌍 **Localization** with `easy_localization`
-- 🧪 **Unit & Widget Testing Ready**
-- 💾 **Secure and Shared Storage**
-- 🎨 **Dynamic Theming** with `flex_color_scheme`
-- 📱 **Responsive UI** with `flutter_screenutil`
-- 🚀 **Flavor Support** for dev/prod using `flutter_flavorizr`
+    - 🧩 **Clean Architecture** (Presentation, Domain, Data layers)
+    - 🗂️ **Modular & Scalable Folder Structure**
+    - 🛠️ **Dependency Injection** with `get_it` and `injectable`
+    - 🌐 **API Handling** using `Dio`
+    - 🌍 **Localization** with `easy_localization`
+    - 🧪 **Unit & Widget Testing Ready**
+    - 💾 **Secure and Shared Storage**
+    - 🎨 **Dynamic Theming** with `flex_color_scheme`
+    - 📱 **Responsive UI** with `flutter_screenutil`
+    - 🚀 **Flavor Support** for dev/prod using `flutter_flavorizr`
 
 
 
