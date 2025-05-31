@@ -103,5 +103,4 @@ flutter:
 
 # === Step 3: Install dependencies and generate files ===
 flutter pub get
-dart run build_runner build --delete-conflicting-outputs
 flutter pub run flutter_flavorizr
