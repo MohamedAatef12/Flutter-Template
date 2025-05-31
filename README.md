@@ -402,6 +402,7 @@ flutter run --flavor prod -t lib/main/main_production.dart
     Debounce
     Throttle
     Keep Alive
+    Animations
     
 
 
