@@ -1,11 +1,19 @@
-# Create project structure
+# === Step 1: Generate project structure ===
 Invoke-WebRequest -Uri "https://raw.githubusercontent.com/MohamedAatef12/Flutter-Template/refs/heads/master/generate_structure.dart" -OutFile "generate_structure.dart"
 dart run generate_structure.dart
 Remove-Item generate_structure.dart
 
-# Write pubspec.yaml
-@"
+# === Step 2: Preserve pubspec top and replace the rest ===
 
+# Read current pubspec.yaml and get lines up to 'environment:'
+$lines = Get-Content pubspec.yaml
+$head = $lines[0..($lines.IndexOf("environment:") + 2)] # Keep name, description, publish_to, version, sdk
+
+# Write the head to pubspec.yaml
+$head | Set-Content pubspec.yaml
+
+# Append the new full content below it
+@"
 dependencies:
   flutter:
     sdk: flutter
@@ -91,13 +99,9 @@ flutter:
     - assets/icons/
     - assets/fonts/
     - assets/translations/
-"@ | Set-Content pubspec.yaml
+"@ | Add-Content pubspec.yaml
 
-# Get dependencies
+# === Step 3: Install dependencies and generate files ===
 flutter pub get
-
-# Run code generation
-flutter pub run build_runner build --delete-conflicting-outputs
-
-# Run flavorizr to generate flavors
+dart run build_runner build --delete-conflicting-outputs
 flutter pub run flutter_flavorizr
