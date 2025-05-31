@@ -398,10 +398,13 @@ flutter pub get
 # 2. Generate DI and env code
 flutter pub run build_runner build --delete-conflicting-outputs
 
-# 3. Run the app with dev flavor
+# 3. Generate Flavours
+flutter pub run flutter_flavorizr
+
+# 4. Run the app with dev flavor
 flutter run --flavor dev -t lib/main/main_development.dart
 
-# 4. Run the app with prod flavor
+# 5. Run the app with prod flavor
 flutter run --flavor prod -t lib/main/main_production.dart
 ```
 
