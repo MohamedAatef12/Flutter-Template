@@ -86,10 +86,10 @@ void main() {
     ],
     'lib/features/home/presentation/pages': ['home_page.dart'],
     'lib/features/home/presentation/widgets': ['post_card.dart'],
-    'assets/fonts': ['font/.gitkeep'],
-    'assets/icons': ['icon/.gitkeep'],
-    'assets/images': ['image/.gitkeep'],
-    'assets/translations': ['ar/.gitkeep', 'en/.gitkeep'],
+    'assets/fonts': ['font/'],
+    'assets/icons': ['icon/'],
+    'assets/images': ['image/'],
+    'assets/translations': ['ar/', 'en/'],
   };
 
   structure.forEach((path, files) {
