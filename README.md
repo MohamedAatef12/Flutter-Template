@@ -264,12 +264,14 @@ if __name__ == "__main__":
 
 ▶️ How to Use
 
+```
 1- Save the script as generate_structure.py.
 
 2- Run it with Python: python generate_structure.py
 
 3- It will create all necessary folders and .dart files under lib/.
 
+```
 
 
 
@@ -366,16 +368,16 @@ assets:
 
 ## 🎯 Features
 
-- 🧩 **Clean Architecture** (Presentation, Domain, Data layers)
-- 🗂️ **Modular & Scalable Folder Structure**
-- 🛠️ **Dependency Injection** with `get_it` and `injectable`
-- 🌐 **API Handling** using `Dio`
-- 🌍 **Localization** with `easy_localization`
-- 🧪 **Unit & Widget Testing Ready**
-- 💾 **Secure and Shared Storage**
-- 🎨 **Dynamic Theming** with `flex_color_scheme`
-- 📱 **Responsive UI** with `flutter_screenutil`
-- 🚀 **Flavor Support** for dev/prod using `flutter_flavorizr`
+    - 🧩 **Clean Architecture** (Presentation, Domain, Data layers)
+    - 🗂️ **Modular & Scalable Folder Structure**
+    - 🛠️ **Dependency Injection** with `get_it` and `injectable`
+    - 🌐 **API Handling** using `Dio`
+    - 🌍 **Localization** with `easy_localization`
+    - 🧪 **Unit & Widget Testing Ready**
+    - 💾 **Secure and Shared Storage**
+    - 🎨 **Dynamic Theming** with `flex_color_scheme`
+    - 📱 **Responsive UI** with `flutter_screenutil`
+    - 🚀 **Flavor Support** for dev/prod using `flutter_flavorizr`
 
 
 
@@ -395,14 +397,18 @@ flutter run --flavor dev -t lib/main/main_development.dart
 flutter run --flavor prod -t lib/main/main_production.dart
 ```
 
+## 🛠️ TODOs 
+
+    Debounce
+    Throttle
+    Keep Alive
+    Animations
+    
+
+
 
 ## 👥 Authors
 
 - **Mohamed Atef** – [GitHub Profile](https://github.com/MohamedAatef12)
 
-
-
-## 📄 License
-
-This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
 
