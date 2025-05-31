@@ -397,6 +397,14 @@ flutter run --flavor dev -t lib/main/main_development.dart
 flutter run --flavor prod -t lib/main/main_production.dart
 ```
 
+## 🛠️ TODOs 
+
+    Debounce
+    Throttle
+    Keep Alive
+    
+
+
 
 ## 👥 Authors
 
