@@ -14,20 +14,17 @@ class DioInterceptors {
       ),
       InterceptorsWrapper(
         onRequest: (options, handler) {
-          // Example: Add auth token if available
-          const token =
-              'YOUR_AUTH_TOKEN'; // Replace with your actual token getter
-          if (token.isNotEmpty) {
-            options.headers['Authorization'] = 'Bearer $token';
-          }
+          // const token =
+          //     'YOUR_AUTH_TOKEN'; // Replace with your actual token getter
+          // if (token.isNotEmpty) {
+          //   options.headers['Authorization'] = 'Bearer $token';
+          // }
           return handler.next(options);
         },
         onResponse: (response, handler) {
-          // You can globally process responses here if needed
           return handler.next(response);
         },
         onError: (DioException e, handler) {
-          // Log the error with Talker (no invalid cast)
           talker.handle(e);
           return handler.next(e);
         },

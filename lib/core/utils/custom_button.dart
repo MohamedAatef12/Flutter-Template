@@ -10,7 +10,7 @@ class CustomFilledButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final TextStyle? textStyle;
-  final bool isLoading; // 🔹 New loading parameter
+  final bool isLoading;
 
   const CustomFilledButton({
     super.key,
@@ -22,7 +22,7 @@ class CustomFilledButton extends StatelessWidget {
     this.backgroundColor,
     this.textColor,
     this.textStyle,
-    this.isLoading = false, // 🔹 Default to false
+    this.isLoading = false,
   });
 
   @override
