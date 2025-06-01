@@ -135,6 +135,16 @@ $runConfigPath = Join-Path $projectPath ".idea\runConfigurations"
 # Ensure the .idea/runConfigurations directory exists
 New-Item -ItemType Directory -Force -Path $runConfigPath | Out-Null
 
+# Get all .xml run configurations
+$allConfigs = Get-ChildItem "$runConfigPath" -Filter *.xml -ErrorAction SilentlyContinue
+
+foreach ($config in $allConfigs) {
+    $content = Get-Content $config.FullName -Raw
+    if ($content -match "main.dart") {
+        Remove-Item $config.FullName -Force
+    }
+}
+
 # Paths to entry point files
 $devEntryPoint = "lib\main\main_development.dart"
 $prodEntryPoint = "lib\main\main_production.dart"
@@ -172,11 +182,14 @@ $devConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "dev.xm
 $prodConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "prod.xml")
 
 Write-Host "`n✅ Flutter run/debug configurations created for:"
+Write-Host "   - removed → all previous configurations containing main.dart"
 Write-Host "   - dev → $devEntryPoint"
 Write-Host "   - prod → $prodEntryPoint"
 Write-Host "`n📁 Location: $runConfigPath"
-Write-Host "`n✅Cleanup completed."
-Write-Host "`n✅Project setup completed successfully!"
-Write-Host "`nℹ️ Please restart Android Studio to apply changes."
+Write-Host "`n✅ Cleanup completed."
+Write-Host "`n✅ Project setup completed successfully!"
+Write-Host "`n✅You are ready to start developing your Flutter app!"
+Write-Host "`nℹ️Create your main function in lib/main/main_development.dart and lib/main/main_production.dart"
+Write-Host "`n`nℹ️ you may need to restart Android Studio to apply changes."
 
 
