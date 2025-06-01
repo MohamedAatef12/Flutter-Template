@@ -102,13 +102,17 @@ flutter pub run flutter_flavorizr
 
 # === Step 4: Cleanup generated flavorizr files/folders ===
 
+# Remove the "flavorizr" folder
+Write-Host "Removing unused flavorizr files..."
+
 # Remove the "lib/flavors.dart" file
 if (Test-Path "lib/flavors.dart") {
-    Remove-Item "lib/flavors.dart" -Recurse -Force
+    Remove-Item "lib/flavors.dart" -Force
 }
+
 # Remove the "lib/app.dart" file
 if (Test-Path "lib/app.dart") {
-    Remove-Item "lib/app.dart" -Recurse -Force
+    Remove-Item "lib/app.dart" -Force
 }
 
 # Remove the "pages" folder
@@ -120,4 +124,58 @@ if (Test-Path "lib/pages") {
 if (Test-Path "lib/main.dart") {
     Remove-Item "lib/main.dart" -Force
 }
+
+Write-Host "Cleanup completed."
+Write-Host "Project setup completed successfully!"
+
+# === Step 5: Run the app ===
+# Get current directory (assumes script is run from root of Flutter project)
+$projectPath = Get-Location
+$runConfigPath = Join-Path $projectPath ".idea\runConfigurations"
+
+# Ensure the .idea/runConfigurations directory exists
+New-Item -ItemType Directory -Force -Path $runConfigPath | Out-Null
+
+# Paths to entry point files
+$devEntryPoint = "lib\main\main_development.dart"
+$prodEntryPoint = "lib\main\main_production.dart"
+
+# Flutter run args
+$devArgs = "--flavor dev -t $devEntryPoint"
+$prodArgs = "--flavor prod -t $prodEntryPoint"
+
+# XML content for dev
+$devConfig = @"
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="dev" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$($projectPath)\$devEntryPoint" />
+    <option name="buildFlavor" value="dev" />
+    <option name="additionalArgs" value="$devArgs" />
+    <method v="2" />
+  </configuration>
+</component>
+"@
+
+# XML content for prod
+$prodConfig = @"
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="prod" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$($projectPath)\$prodEntryPoint" />
+    <option name="buildFlavor" value="prod" />
+    <option name="additionalArgs" value="$prodArgs" />
+    <method v="2" />
+  </configuration>
+</component>
+"@
+
+# Write config files
+$devConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "dev.xml")
+$prodConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "prod.xml")
+
+Write-Host "`n✅ Flutter run/debug configurations created for:"
+Write-Host "   - dev → $devEntryPoint"
+Write-Host "   - prod → $prodEntryPoint"
+Write-Host "`n📁 Location: $runConfigPath"
+Write-Host "`nℹ️ Please restart Android Studio or run 'File → Synchronize' to apply changes."
+
 
