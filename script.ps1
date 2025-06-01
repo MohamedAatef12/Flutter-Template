@@ -4,15 +4,10 @@ dart run generate_structure.dart
 Remove-Item generate_structure.dart
 
 # === Step 2: Preserve pubspec top and replace the rest ===
-
-# Read current pubspec.yaml and get lines up to 'environment:'
 $lines = Get-Content pubspec.yaml
-$head = $lines[0..($lines.IndexOf("environment:") + 2)] # Keep name, description, publish_to, version, sdk
-
-# Write the head to pubspec.yaml
+$head = $lines[0..($lines.IndexOf("environment:") + 2)]
 $head | Set-Content pubspec.yaml
 
-# Append the new full content below it
 @"
 dependencies:
   flutter:
@@ -104,3 +99,20 @@ flutter:
 # === Step 3: Install dependencies and generate files ===
 flutter pub get
 flutter pub run flutter_flavorizr
+
+# === Step 4: Cleanup generated flavorizr files/folders ===
+# Remove the "flavors" folder
+if (Test-Path "lib/flavors") {
+    Remove-Item "lib/flavors" -Recurse -Force
+}
+
+# Remove the "pages" folder if created by flavorizr
+if (Test-Path "lib/pages") {
+    Remove-Item "lib/pages" -Recurse -Force
+}
+
+# Remove lib/main.dart
+if (Test-Path "lib/main.dart") {
+    Remove-Item "lib/main.dart" -Force
+}
+
