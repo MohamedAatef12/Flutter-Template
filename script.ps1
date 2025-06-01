@@ -125,8 +125,7 @@ if (Test-Path "lib/main.dart") {
     Remove-Item "lib/main.dart" -Force
 }
 
-Write-Host "Cleanup completed."
-Write-Host "Project setup completed successfully!"
+
 
 # === Step 5: Run the app ===
 # Get current directory (assumes script is run from root of Flutter project)
@@ -176,6 +175,8 @@ Write-Host "`n✅ Flutter run/debug configurations created for:"
 Write-Host "   - dev → $devEntryPoint"
 Write-Host "   - prod → $prodEntryPoint"
 Write-Host "`n📁 Location: $runConfigPath"
-Write-Host "`nℹ️ Please restart Android Studio or run 'File → Synchronize' to apply changes."
+Write-Host "`n✅Cleanup completed."
+Write-Host "`n✅Project setup completed successfully!"
+Write-Host "`nℹ️ Please restart Android Studio to apply changes."
 
 
