@@ -101,7 +101,7 @@ flutter pub get
 flutter pub run flutter_flavorizr
 
 # === Step 4: Cleanup generated flavorizr files/folders ===
-Write-Host "Removing unused flavorizr files..."
+Write-Host "`n✅ Removing unused flavorizr files..."
 
 if (Test-Path "lib/flavors.dart") { Remove-Item "lib/flavors.dart" -Force }
 if (Test-Path "lib/app.dart") { Remove-Item "lib/app.dart" -Force }
@@ -137,12 +137,12 @@ if (Test-Path $workspaceXmlPath) {
     }
     if ($removedCount -gt 0) {
         $workspaceXml.Save($workspaceXmlPath)
-        Write-Host "✅ Removed $removedCount main.dart config(s) from workspace.xml"
+        Write-Host "`n✅ Removed $removedCount main.dart config(s) from workspace.xml"
     } else {
-        Write-Host "ℹ️ No main.dart configs found in workspace.xml"
+        Write-Host "`nℹ️ No main.dart configs found in workspace.xml"
     }
 } else {
-    Write-Host "⚠️ workspace.xml not found. Skipped cleaning default config."
+    Write-Host "`n⚠️ workspace.xml not found. Skipped cleaning default config."
 }
 
 # === Step 6: Create new run configs for dev and prod ===
@@ -181,7 +181,6 @@ $prodConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "prod.
 Write-Host "`n✅ Flutter run/debug configurations created for:"
 Write-Host "   - dev → $devEntryPoint"
 Write-Host "   - prod → $prodEntryPoint"
-Write-Host "`n📁 Location: $runConfigPath"
 Write-Host "`n✅ Cleanup completed."
 Write-Host "`n✅ Project setup completed successfully!"
 Write-Host "`n✅ You are ready to start developing your Flutter app!"
