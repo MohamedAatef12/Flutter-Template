@@ -101,12 +101,17 @@ flutter pub get
 flutter pub run flutter_flavorizr
 
 # === Step 4: Cleanup generated flavorizr files/folders ===
-# Remove the "flavors" folder
-if (Test-Path "lib/flavors") {
-    Remove-Item "lib/flavors" -Recurse -Force
+
+# Remove the "lib/flavors.dart" file
+if (Test-Path "lib/flavors.dart") {
+    Remove-Item "lib/flavors.dart" -Recurse -Force
+}
+# Remove the "lib/app.dart" file
+if (Test-Path "lib/app.dart") {
+    Remove-Item "lib/app.dart" -Recurse -Force
 }
 
-# Remove the "pages" folder if created by flavorizr
+# Remove the "pages" folder
 if (Test-Path "lib/pages") {
     Remove-Item "lib/pages" -Recurse -Force
 }
