@@ -139,7 +139,7 @@ if (Test-Path $workspaceXmlPath) {
         $workspaceXml.Save($workspaceXmlPath)
         Write-Host "`n✅ Removed $removedCount main.dart config(s) from workspace.xml"
     } else {
-        Write-Host "`nℹ️ No main.dart configs found in workspace.xml"
+        Write-Host "`n✅ No main.dart configs found in workspace.xml"
     }
 } else {
     Write-Host "`n⚠️ workspace.xml not found. Skipped cleaning default config."
