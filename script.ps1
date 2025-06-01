@@ -101,43 +101,20 @@ flutter pub get
 flutter pub run flutter_flavorizr
 
 # === Step 4: Cleanup generated flavorizr files/folders ===
-
-# Remove the "flavorizr" folder
 Write-Host "Removing unused flavorizr files..."
 
-# Remove the "lib/flavors.dart" file
-if (Test-Path "lib/flavors.dart") {
-    Remove-Item "lib/flavors.dart" -Force
-}
+if (Test-Path "lib/flavors.dart") { Remove-Item "lib/flavors.dart" -Force }
+if (Test-Path "lib/app.dart") { Remove-Item "lib/app.dart" -Force }
+if (Test-Path "lib/pages") { Remove-Item "lib/pages" -Recurse -Force }
+if (Test-Path "lib/main.dart") { Remove-Item "lib/main.dart" -Force }
 
-# Remove the "lib/app.dart" file
-if (Test-Path "lib/app.dart") {
-    Remove-Item "lib/app.dart" -Force
-}
-
-# Remove the "pages" folder
-if (Test-Path "lib/pages") {
-    Remove-Item "lib/pages" -Recurse -Force
-}
-
-# Remove lib/main.dart
-if (Test-Path "lib/main.dart") {
-    Remove-Item "lib/main.dart" -Force
-}
-
-
-
-# === Step 5: Run the app ===
-# Get current directory (assumes script is run from root of Flutter project)
+# === Step 5: Remove Android Studio default and previous main.dart run configs ===
 $projectPath = Get-Location
 $runConfigPath = Join-Path $projectPath ".idea\runConfigurations"
-
-# Ensure the .idea/runConfigurations directory exists
 New-Item -ItemType Directory -Force -Path $runConfigPath | Out-Null
 
-# Get all .xml run configurations
+# Delete any run configurations that contain main.dart
 $allConfigs = Get-ChildItem "$runConfigPath" -Filter *.xml -ErrorAction SilentlyContinue
-
 foreach ($config in $allConfigs) {
     $content = Get-Content $config.FullName -Raw
     if ($content -match "main.dart") {
@@ -145,15 +122,36 @@ foreach ($config in $allConfigs) {
     }
 }
 
-# Paths to entry point files
+# Also remove default main.dart config from workspace.xml
+$workspaceXmlPath = Join-Path $projectPath ".idea\workspace.xml"
+if (Test-Path $workspaceXmlPath) {
+    [xml]$workspaceXml = Get-Content $workspaceXmlPath
+    $configs = $workspaceXml.SelectNodes("//configuration")
+    $removedCount = 0
+    foreach ($config in $configs) {
+        $filePathAttr = $config.SelectSingleNode("option[@name='filePath']")
+        if ($filePathAttr -and $filePathAttr.value -like "*main.dart") {
+            $null = $config.ParentNode.RemoveChild($config)
+            $removedCount++
+        }
+    }
+    if ($removedCount -gt 0) {
+        $workspaceXml.Save($workspaceXmlPath)
+        Write-Host "✅ Removed $removedCount main.dart config(s) from workspace.xml"
+    } else {
+        Write-Host "ℹ️ No main.dart configs found in workspace.xml"
+    }
+} else {
+    Write-Host "⚠️ workspace.xml not found. Skipped cleaning default config."
+}
+
+# === Step 6: Create new run configs for dev and prod ===
 $devEntryPoint = "lib\main\main_development.dart"
 $prodEntryPoint = "lib\main\main_production.dart"
 
-# Flutter run args
 $devArgs = "--flavor dev -t $devEntryPoint"
 $prodArgs = "--flavor prod -t $prodEntryPoint"
 
-# XML content for dev
 $devConfig = @"
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="dev" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -165,7 +163,6 @@ $devConfig = @"
 </component>
 "@
 
-# XML content for prod
 $prodConfig = @"
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="prod" type="FlutterRunConfigurationType" factoryName="Flutter">
@@ -177,19 +174,18 @@ $prodConfig = @"
 </component>
 "@
 
-# Write config files
 $devConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "dev.xml")
 $prodConfig | Out-File -Encoding UTF8 -FilePath (Join-Path $runConfigPath "prod.xml")
 
+# === Done ===
 Write-Host "`n✅ Flutter run/debug configurations created for:"
-Write-Host "   - removed → all previous configurations containing main.dart"
 Write-Host "   - dev → $devEntryPoint"
 Write-Host "   - prod → $prodEntryPoint"
 Write-Host "`n📁 Location: $runConfigPath"
 Write-Host "`n✅ Cleanup completed."
 Write-Host "`n✅ Project setup completed successfully!"
-Write-Host "`n✅You are ready to start developing your Flutter app!"
-Write-Host "`nℹ️Create your main function in lib/main/main_development.dart and lib/main/main_production.dart"
-Write-Host "`n`nℹ️ you may need to restart Android Studio to apply changes."
-
-
+Write-Host "`n✅ You are ready to start developing your Flutter app!"
+Write-Host "`nℹ️ Create your main function in:"
+Write-Host "   - lib/main/main_development.dart"
+Write-Host "   - lib/main/main_production.dart"
+Write-Host "`nℹ️ You may need to restart Android Studio to apply changes."
